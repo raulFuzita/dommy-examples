@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+    
+    <input id="searchInput" type="text" placeholder="search for name">
+    <button id="searchBtn">Search</button>
+    <div>
+        <img id="image">
+        <a href="index">Go to home</a>
+    </div>
+
+<script>
+    const image = document.getElementById('image')
+    const input = document.getElementById('searchInput')
+    const button = document.getElementById('searchBtn')
+
+    button.addEventListener('click', () => {
+        const name = input.value
+        fetch( 'search', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name: name})
+        })
+        .then(res => res.json())
+        .then((data) => {
+            if(data) image.src = data
+        })
+        .catch(err => console.log(err))
+    })
+
+</script>
+</body>
+</html>
